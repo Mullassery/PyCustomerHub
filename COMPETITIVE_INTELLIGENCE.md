@@ -56,6 +56,8 @@ starts, and record the decision in the PR or changelog.
 
 ## OSS gap analysis — 2026-10-24
 
+**What matters most here:** destination breadth and warehouse delivery. Four destinations and no Snowflake/BigQuery/S3 loader mean teams still need another activation tool; broaden the catalog and treat the warehouse as a first-class destination.
+
 Scope: Compared PyCustomerHub's implemented collect → identify → profile → audience → activate → journey path against three self-hostable event/CDP platforms users evaluate for the same job. Assessed destination breadth, identity handling, warehouse delivery, consent/governance, deployment and operating evidence using only this repo's architecture doc plus competitors' READMEs and GitHub metadata.
 
 ### Comparable OSS projects
