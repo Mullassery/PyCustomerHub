@@ -24,6 +24,7 @@ use crate::state::AppState;
 pub fn router(state: AppState) -> Router {
     Router::new()
         .route("/healthz", get(health::healthz))
+        .route("/openapi.json", get(crate::openapi::spec))
         .route("/v1/squid", post(squid_source::webhook))
         .route("/v1/track", post(http_source::track))
         .route("/v1/identify", post(http_source::identify))

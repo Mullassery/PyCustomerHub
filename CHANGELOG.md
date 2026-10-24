@@ -10,6 +10,8 @@ duplicate.
 ## [Unreleased]
 
 ### Added
+- OpenAPI 3.1 discovery document at `GET /openapi.json` for the HTTP surface.
+
 - HTTP tracking-source compatibility: `/v1/track`, `/v1/identify`,
   `/v1/page`, `/v1/screen`, `/v1/group`, `/v1/alias`, and `/v1/batch`
   translate the common analytics HTTP shape into canonical OCDS events.

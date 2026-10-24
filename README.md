@@ -24,6 +24,7 @@ PyCustomerHub is a self-hosted CDP and engagement platform that implements the f
 - **Bulk activation** — a fourth destination kind alongside webhook/HubSpot/Klaviyo via [PyReverseETL](https://github.com/Mullassery/PyReverseETL)'s real sync engine.
 - **Delivery policy** — every destination shares retry with capped exponential backoff for transient failures, plus optional per-destination rate limiting. Permanent config, payload, and SSRF failures fail immediately.
 - **Clear extension points** — inbound sources translate into one canonical event envelope; outbound connectors implement one small trait and inherit the shared delivery policy.
+- **API discovery** — `GET /openapi.json` returns an OpenAPI 3.1 document for the tracking, event, profile, schema, audience, activation, governance, channel, template, and journey surfaces (generic bodies).
 
 ## Who it's for / Use cases
 

@@ -213,7 +213,7 @@ pub async fn require(
     request: Request<Body>,
     next: Next,
 ) -> Response {
-    if request.uri().path() == "/healthz" {
+    if matches!(request.uri().path(), "/healthz" | "/openapi.json") {
         return next.run(request).await;
     }
     // Tracking-source routes authenticate with their own write key, because

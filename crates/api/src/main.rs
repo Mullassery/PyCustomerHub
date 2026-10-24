@@ -2,6 +2,7 @@ mod auth;
 mod error;
 mod http_source;
 mod labels;
+mod openapi;
 mod routes;
 mod squid_source;
 mod state;
