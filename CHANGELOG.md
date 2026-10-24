@@ -121,7 +121,7 @@ duplicate.
   second destination kind alongside webhook.
 - CI (`.github/workflows/ci.yml`): Rust (fmt/clippy/test), JS (sdk/js, sdk/web, edge/ingest-gateway,
   ui), Python (pytest), iOS (swift build/test on macos-15).
-- `SECURITY.md`, `CONTRIBUTING.md`, `ROADMAP_HONEST.md`, `docs/architecture/README.md` (diagrams),
+- `SECURITY.md`, `CONTRIBUTING.md`, `docs/internal/ROADMAP_HONEST.md`, `docs/architecture/README.md` (diagrams),
   `.github/dependabot.yml`, issue/PR templates — this documentation pass.
 
 ### Security
@@ -161,7 +161,7 @@ duplicate.
   score (e.g. a scoring-function bug) degrades to an unstable sort order instead of panicking the
   request handler on network-influenced data.
 
-### Known issues (see `ROADMAP_HONEST.md` and `SECURITY.md` for full detail)
+### Known issues (see `docs/internal/ROADMAP_HONEST.md` and `SECURITY.md` for full detail)
 - No authentication or tenant isolation in `mb-api`.
 - `sdk/android` has never been compiled or tested.
 - `edge/ingest-gateway` has no write-key/API-key auth and has never been deployed.

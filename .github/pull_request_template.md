@@ -9,7 +9,7 @@
 ## How was this tested?
 
 <!--
-Be specific and honest — this project's docs (docs/ARCHITECTURE.md, ROADMAP_HONEST.md) are
+Be specific and honest — this project's docs (docs/ARCHITECTURE.md, ../docs/internal/ROADMAP_HONEST.md) are
 deliberately blunt about what's verified vs. not, and PRs are expected to match that tone.
 State plainly which of these you did, and don't describe untested code as working:
 -->
@@ -27,7 +27,7 @@ State plainly which of these you did, and don't describe untested code as workin
 ## Docs updated?
 
 - [ ] `docs/ARCHITECTURE.md` and/or `docs/OCDS.md` updated to match the new behavior
-- [ ] `ROADMAP_HONEST.md` updated if this closes or introduces a disclosed gap
+- [ ] `../docs/internal/ROADMAP_HONEST.md` updated if this closes or introduces a disclosed gap
 - [ ] N/A — no user-visible or architectural change
 
 ## Checklist

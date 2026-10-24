@@ -6,7 +6,7 @@ than a guaranteed SLA.
 
 ## Before you start
 
-Read `docs/ARCHITECTURE.md` and `ROADMAP_HONEST.md` first. Both are written in a deliberately
+Read `docs/ARCHITECTURE.md` and `docs/internal/ROADMAP_HONEST.md` first. Both are written in a deliberately
 blunt "what's real vs. deferred" style — they'll tell you faster than the code will whether the
 thing you want to build already half-exists, was tried and abandoned, or is a disclosed gap
 waiting for exactly this kind of PR.
@@ -74,7 +74,7 @@ compiled.
   neither). Don't describe untested code as working — that's the one house rule this project is
   strict about; see `docs/ARCHITECTURE.md` for the tone to match.
 - No `TODO`/`FIXME` placeholders that pretend to work — if something isn't finished, either finish
-  it, don't merge it, or disclose the gap explicitly in the code comment and in `ROADMAP_HONEST.md`.
+  it, don't merge it, or disclose the gap explicitly in the code comment and in `docs/internal/ROADMAP_HONEST.md`.
 
 ## Reporting bugs and requesting features
 

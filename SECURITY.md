@@ -3,7 +3,7 @@
 PyCustomerHub is a Customer Data Platform: by design it ingests, resolves, and stores customer
 identity claims (email, phone, device ids) and profile data. Read this before deploying it
 against real customer data — as of 2026-09-22, **it is not ready for that**, and the gaps below
-are the reason why. This is not hedging; see `ROADMAP_HONEST.md` for the full technical detail.
+are the reason why. This is not hedging; see `docs/internal/ROADMAP_HONEST.md` for the full technical detail.
 
 ## Current security posture (read this first)
 
@@ -31,7 +31,7 @@ hypothetical risks:
   `SHA-256(namespace:value)` — low-entropy inputs remain crackable by a reader with database
   access via a precomputed dictionary. Setting the pepper for the first time on a deployment that
   already has identity data written is a breaking change (old hashes stop matching); there is no
-  re-hash migration tool, so plan that separately. See `ROADMAP_HONEST.md`'s Security section for
+  re-hash migration tool, so plan that separately. See `docs/internal/ROADMAP_HONEST.md`'s Security section for
   the full threat model.
 - **`sqlx` was upgraded from `0.7.4` to `0.8.6`** (fixed 2026-09-22), resolving RUSTSEC-2024-0363
   (binary protocol misinterpretation via truncating/overflowing casts). No breaking API changes
@@ -88,7 +88,7 @@ backport to yet.
 `cargo audit`, `npm audit`, and `pip-audit` were run against this repository on 2026-09-22. `npm
 audit` and `pip-audit` reported zero vulnerabilities. `cargo audit` originally found two real
 findings (`sqlx`, above, and an unreachable `rsa` transitive dependency pulled in only via
-`sqlx-mysql`'s unactivated `mysql` feature — see `ROADMAP_HONEST.md`) plus one transitive,
+`sqlx-mysql`'s unactivated `mysql` feature — see `docs/internal/ROADMAP_HONEST.md`) plus one transitive,
 unmaintained crate warning (`paste`). As of the same day: the `sqlx` bump above fixes the real
 vulnerability (and incidentally dropped the `paste` dependency entirely), and `.cargo/audit.toml`
 documents and suppresses the unreachable `rsa` finding (it cannot be removed from `Cargo.lock`

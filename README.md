@@ -45,7 +45,7 @@ PyCustomerHub is a self-hosted CDP and engagement platform that implements the f
 
 `v0.8.0` (Rust workspace) / `pycustomerhub` 0.8.0 is the latest published release. The current tree also contains unreleased integration work: HTTP tracking-source compatibility, write-key tenant mapping, seeded `http.*` schemas, signed Squid envelope-v1 webhook ingestion with workspace→tenant mapping, seeded `squid.*` schemas, and shared connector retry/backoff/rate limiting.
 
-Phases 1–5 of the reference architecture are built (core event platform → identity → CDP → governance → engagement), with client-side collection, the edge gateway, HTTP tracking ingestion, and PyReverseETL activation layered on top. [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) is the source of truth for what's real vs. deferred at each layer, and [ROADMAP_HONEST.md](ROADMAP_HONEST.md) tracks technical debt and security findings with file:line specifics.
+Phases 1–5 of the reference architecture are built (core event platform → identity → CDP → governance → engagement), with client-side collection, the edge gateway, HTTP tracking ingestion, and PyReverseETL activation layered on top. [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) is the source of truth for what's real vs. deferred at each layer, and [docs/internal/ROADMAP_HONEST.md](docs/internal/ROADMAP_HONEST.md) tracks technical debt and security findings with file:line specifics.
 
 ## Installation
 
@@ -330,7 +330,7 @@ No dates or guarantees — this is the integration-first order of work, not a pr
 - [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) — reference architecture, phase-by-phase, what's real vs. deferred
 - [docs/OCDS.md](docs/OCDS.md) — the canonical data model
 - [docs/architecture/README.md](docs/architecture/README.md) — data-flow and journey-durability diagrams
-- [ROADMAP_HONEST.md](ROADMAP_HONEST.md) — status buckets, technical debt, security findings
+- [docs/internal/ROADMAP_HONEST.md](docs/internal/ROADMAP_HONEST.md) — status buckets, technical debt, security findings
 - [SECURITY.md](SECURITY.md) — current security posture and how to report a vulnerability
 - [CONTRIBUTING.md](CONTRIBUTING.md) — dev setup, test commands, PR expectations
 
@@ -346,7 +346,7 @@ No dates or guarantees — this is the integration-first order of work, not a pr
 - Sequence audiences, experimentation, and AI decisioning until the integration and delivery layers are stronger.
 - Full RBAC/SSO productization and multi-tenant isolation hardening.
 
-Full shipped/blocked/rejected detail: [`QUEUE_STATUS.md`](QUEUE_STATUS.md).
+Full shipped/blocked/rejected detail: [`docs/internal/QUEUE_STATUS.md`](docs/internal/QUEUE_STATUS.md).
 
 ## Contributing
 

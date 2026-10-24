@@ -78,7 +78,7 @@ flowchart TD
 **Key, since color alone shouldn't carry meaning:** boxes marked with a dashed line or explicit
 label text ("NOT deployed", "unverified", "NOT re-run") are disclosed gaps, not implied failures —
 cross-reference `docs/ARCHITECTURE.md`'s "What's explicitly NOT built yet" section and
-`ROADMAP_HONEST.md`'s security findings for what each one means in practice. In particular: there
+`../internal/ROADMAP_HONEST.md`'s security findings for what each one means in practice. In particular: there
 is no authentication anywhere on the `pch-api` box, and `tenant_id` isolation is enforced only by
 application-level query filtering, not a database or gateway-level boundary — see `SECURITY.md`.
 
