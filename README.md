@@ -2,7 +2,7 @@
 
 An open-source, event-driven Customer Data & Engagement Platform (CDP) built in Rust and TypeScript.
 
-[![CI](https://github.com/Mullassery/PyCustomerHub/actions/workflows/ci.yml/badge.svg)](https://github.com/Mullassery/PyCustomerHub/actions/workflows/ci.yml)
+[![CI](../PyCustomerHub/actions/workflows/ci.yml/badge.svg)](../PyCustomerHub/actions/workflows/ci.yml)
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 [![pycustomerhub on PyPI](https://img.shields.io/pypi/v/pycustomerhub.svg?label=pycustomerhub)](https://pypi.org/project/pycustomerhub/)
 
@@ -21,7 +21,7 @@ PyCustomerHub is a self-hosted CDP and engagement platform that implements the f
 - **HTTP tracking-source compatibility** — `/v1/track`, `/v1/identify`, `/v1/page`, `/v1/screen`, `/v1/group`, `/v1/alias`, and `/v1/batch` accept the common analytics HTTP shape, so existing client instrumentation can point at PyCustomerHub without being rewritten. Write keys map to tenants; messages are translated into OCDS and run through the same identity/audience/journey pipeline.
 - **Signed CRM webhooks** — `/v1/squid` verifies Squid envelope v1 HMAC signatures, maps workspace IDs to tenants, registers object-specific schemas, and preserves record context. Person names/emails/phones update the standard mixins; other objects stay event data.
 - **Destination connectors** — webhook, HubSpot contacts (batch upsert by email), and Klaviyo profile import, all behind the same governance/consent gate.
-- **Bulk activation** — a fourth destination kind alongside webhook/HubSpot/Klaviyo via [PyReverseETL](https://github.com/Mullassery/PyReverseETL)'s real sync engine.
+- **Bulk activation** — a fourth destination kind alongside webhook/HubSpot/Klaviyo via [PyReverseETL](../PyReverseETL)'s real sync engine.
 - **Delivery policy** — every destination shares retry with capped exponential backoff for transient failures, plus optional per-destination rate limiting. Permanent config, payload, and SSRF failures fail immediately.
 - **Clear extension points** — inbound sources translate into one canonical event envelope; outbound connectors implement one small trait and inherit the shared delivery policy.
 - **API discovery** — `GET /openapi.json` returns an OpenAPI 3.1 document for the tracking, event, profile, schema, audience, activation, governance, channel, template, and journey surfaces (generic bodies).
@@ -201,7 +201,7 @@ deployments can migrate incrementally:
 - **SDKs:** npm packages are scoped `@pycustomerhub/*`; Python code imports
   `pycustomerhub` (`PyCustomerHubClient`). A deprecated `messagebirds` Python
   import shim and old web/iOS/Android storage-key migrations are included.
-- **URLs:** use `https://github.com/Mullassery/PyCustomerHub`. GitHub redirects
+- **URLs:** use `../PyCustomerHub`. GitHub redirects
   old repository links, but update local remotes.
 
 ## Event-triggered journeys
@@ -355,13 +355,13 @@ See [CONTRIBUTING.md](CONTRIBUTING.md). Bug/security reports: see [SECURITY.md](
 
 ## Related projects
 
-- [PyReverseETL](https://github.com/Mullassery/PyReverseETL) — quality-validated data activation with audit trail, lineage, and compliance records; PyCustomerHub's bulk-sync destination
-- [ClusterAudienceKit](https://github.com/Mullassery/ClusterAudienceKit) — RFM analysis, clustering, CLV, churn detection, and lookalikes; complements PyCustomerHub's rule-based audiences
-- [PrismNote](https://github.com/Mullassery/prismnote) — Jupyter-compatible data-science notebook with SQL execution across 9+ database backends
-- [MudFish](https://github.com/Mullassery/MudFish) — Rust-native web crawling and intelligence engine for collecting raw web data
-- [PyAPICheck](https://github.com/Mullassery/PyAPICheck) — transparent API security discovery with a Rust core and Python CLI/SDK
+- [PyReverseETL](../PyReverseETL) — quality-validated data activation with audit trail, lineage, and compliance records; PyCustomerHub's bulk-sync destination
+- [ClusterAudienceKit](../ClusterAudienceKit) — RFM analysis, clustering, CLV, churn detection, and lookalikes; complements PyCustomerHub's rule-based audiences
+- [PrismNote](../prismnote) — Jupyter-compatible data-science notebook with SQL execution across 9+ database backends
+- [MudFish](../MudFish) — Rust-native web crawling and intelligence engine for collecting raw web data
+- [PyAPICheck](../PyAPICheck) — transparent API security discovery with a Rust core and Python CLI/SDK
 
-[Browse all projects →](https://github.com/Mullassery?tab=repositories)
+[Browse all projects →](../Mullassery-profile)
 
 ## License
 

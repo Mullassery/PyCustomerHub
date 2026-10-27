@@ -1,6 +1,6 @@
 # pycustomerhub
 
-Python client SDK for [PyCustomerHub](https://github.com/Mullassery/PyCustomerHub), an
+Python client SDK for [PyCustomerHub](../PyCustomerHub), an
 open-source, event-driven Customer Data & Engagement Platform.
 
 Mirrors `sdk/js` exactly in scope: `PyCustomerHubClient` covers the core

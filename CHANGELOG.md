@@ -119,7 +119,7 @@ duplicate.
   Android toolchain available in any session so far).
 - `edge/ingest-gateway`: a Cloudflare Worker terminating CORS in front of `mb-api`, built and
   tested locally, never deployed.
-- Bulk audience activation via [PyReverseETL](https://github.com/Mullassery/PyReverseETL) as a
+- Bulk audience activation via [PyReverseETL](../PyReverseETL) as a
   second destination kind alongside webhook.
 - CI (`.github/workflows/ci.yml`): Rust (fmt/clippy/test), JS (sdk/js, sdk/web, edge/ingest-gateway,
   ui), Python (pytest), iOS (swift build/test on macos-15).

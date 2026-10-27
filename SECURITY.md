@@ -47,7 +47,7 @@ with no real customer PII, until authentication and tenant isolation exist.
 This is a solo-maintained open-source project. Please report suspected vulnerabilities privately
 rather than opening a public GitHub issue:
 
-- Use **[GitHub Security Advisories](https://github.com/Mullassery/PyCustomerHub/security/advisories/new)**
+- Use **[GitHub Security Advisories](../PyCustomerHub/security/advisories/new)**
   for this repository ("Report a vulnerability" under the Security tab), or
 - Email **mullassery@gmail.com** with a description, reproduction steps, and impact assessment.
 
