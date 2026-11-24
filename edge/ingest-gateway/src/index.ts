@@ -2,8 +2,6 @@ export interface Env {
   PYCUSTOMERHUB_API_URL?: string;
   /** JSON object mapping write keys to tenant UUIDs. */
   PYCUSTOMERHUB_EDGE_WRITE_KEYS?: string;
-  /** Deprecated pre-rebrand binding, still accepted during migration. */
-  MESSAGEBIRDS_API_URL?: string;
 }
 
 const ALLOWED_METHODS = "POST, OPTIONS";
@@ -95,7 +93,7 @@ export default {
       });
     }
 
-    const apiUrl = env.PYCUSTOMERHUB_API_URL ?? env.MESSAGEBIRDS_API_URL;
+    const apiUrl = env.PYCUSTOMERHUB_API_URL;
     if (!apiUrl) {
       return new Response(JSON.stringify({ error: "upstream API URL is not configured" }), {
         status: 503,

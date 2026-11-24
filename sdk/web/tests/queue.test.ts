@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 import type { EventEnvelope } from "@pycustomerhub/sdk";
-import { EventQueue, LEGACY_QUEUE_STORAGE_KEY, QUEUE_STORAGE_KEY } from "../src/queue.js";
+import { EventQueue, QUEUE_STORAGE_KEY } from "../src/queue.js";
 import { InMemoryStorage } from "../src/memory-storage.js";
 
 function envelope(id: string): EventEnvelope {
@@ -64,20 +64,19 @@ describe("EventQueue", () => {
     expect(remaining[0].attempts).toBe(1);
   });
 
-  it("migrates queued events from the pre-rebrand storage key", async () => {
+  it("loads events persisted under the current storage key", async () => {
     const storage = new InMemoryStorage();
+    storage.setItem(
+      QUEUE_STORAGE_KEY,
+      JSON.stringify([{ envelope: envelope("persisted"), attempts: 0 }]),
+    );
     const send = vi.fn().mockResolvedValue(true);
     const queue = new EventQueue(storage, send);
-    storage.setItem(
-      LEGACY_QUEUE_STORAGE_KEY,
-      JSON.stringify([{ envelope: envelope("legacy"), attempts: 0 }]),
-    );
 
     await queue.flush();
 
     expect(send).toHaveBeenCalledTimes(1);
     expect(JSON.parse(storage.getItem(QUEUE_STORAGE_KEY)!)).toEqual([]);
-    expect(JSON.parse(storage.getItem(LEGACY_QUEUE_STORAGE_KEY)!)).toEqual([]);
   });
 
   it("does not retry again before the backoff window elapses", async () => {

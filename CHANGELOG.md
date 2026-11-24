@@ -37,20 +37,20 @@ duplicate.
   Receivers can verify freshness and dedupe deliveries.
 
 ### Changed
-- Renamed the project from MessageBirds to PyCustomerHub: Rust crates/imports
+- Renamed the project from PyCustomerHub to PyCustomerHub: Rust crates/imports
   are `pch-*`/`pch_*`, npm packages are scoped `@pycustomerhub/*`, the Python
   package is `pycustomerhub`, and environment variables use
-  `PYCUSTOMERHUB_*`. Legacy MessageBirds environment variables, SSO group
+  `PYCUSTOMERHUB_*`. Legacy PyCustomerHub environment variables, SSO group
   names, SDK storage keys, and the Python import package are accepted as
   deprecated compatibility fallbacks.
 
 ## [0.8.0] - 2026-10-19
 
 ### Added
-- Optional forward-auth SSO: `MESSAGEBIRDS_TRUST_PROXY_AUTH=1` reads
+- Optional forward-auth SSO: `PYCUSTOMERHUB_TRUST_PROXY_AUTH=1` reads
   `X-Auth-Request-User`, `X-Auth-Request-Groups`, and
   `X-Auth-Request-Tenant` from an authenticating proxy. Group
-  `messagebirds-admin`/`messagebirds-writer` maps to that role; otherwise
+  `pycustomerhub-admin`/`pycustomerhub-writer` maps to that role; otherwise
   read-only. The proxy must strip client-supplied headers.
 
 ## [0.7.0] - 2026-10-19
@@ -64,7 +64,7 @@ duplicate.
 ## [0.6.0] - 2026-10-19
 
 ### Added
-- Coarse API-key roles: `MESSAGEBIRDS_API_KEYS` values may be
+- Coarse API-key roles: `PYCUSTOMERHUB_API_KEYS` values may be
   `{"tenant_id": "...", "role": "read_only"}` (or `"viewer"`). Read-only keys
   are limited to GET/HEAD/OPTIONS; admin is the default. Still not SSO/full
   RBAC.
@@ -72,16 +72,16 @@ duplicate.
 ## [0.5.0] - 2026-10-19
 
 ### Added
-- Multi-key API authentication via `MESSAGEBIRDS_API_KEYS`
+- Multi-key API authentication via `PYCUSTOMERHUB_API_KEYS`
   (`{"key": "tenant-uuid"}`). Each key resolves to its own tenant and mismatched
   `tenant_id` query/body values are rejected. The single-key
-  `MESSAGEBIRDS_API_KEY`/`_TENANT` pair remains supported. Still no
+  `PYCUSTOMERHUB_API_KEY`/`_TENANT` pair remains supported. Still no
   roles/SSO.
 
 ## [0.4.0] - 2026-10-19
 
 ### Added
-- Optional tenant binding for the API key: `MESSAGEBIRDS_API_KEY_TENANT`
+- Optional tenant binding for the API key: `PYCUSTOMERHUB_API_KEY_TENANT`
   restricts requests to that tenant by rejecting a mismatched `tenant_id` in
   the query string or JSON body (403). This is still a single-key gate, not
   per-tenant keys/RBAC.
@@ -89,7 +89,7 @@ duplicate.
 ## [0.3.0] - 2026-10-19
 
 ### Added
-- Optional single-key API authentication: set `MESSAGEBIRDS_API_KEY` and every
+- Optional single-key API authentication: set `PYCUSTOMERHUB_API_KEY` and every
   route except `/healthz` requires `Authorization: Bearer <key>` (constant-time
   comparison). Unset keeps the previous local-dev behaviour. This is not tenant
   isolation/RBAC; handlers still trust the request's `tenant_id`.
@@ -114,10 +114,10 @@ duplicate.
   durable journey orchestration (Wait/Condition/Action/Split/End nodes), contact-policy
   suppression.
 - Client SDKs: `sdk/js` (TypeScript), `sdk/web` (browser, queued/retrying), `sdk/python`
-  (published on PyPI as `messagebirds`), `sdk/ios` (Swift package, `swift build` +
-  `swift run mb-verify` verified), `sdk/android` (Kotlin, written but not build-verified — no
+  (published on PyPI as `pycustomerhub`), `sdk/ios` (Swift package, `swift build` +
+  `swift run pch-verify` verified), `sdk/android` (Kotlin, written but not build-verified — no
   Android toolchain available in any session so far).
-- `edge/ingest-gateway`: a Cloudflare Worker terminating CORS in front of `mb-api`, built and
+- `edge/ingest-gateway`: a Cloudflare Worker terminating CORS in front of `pch-api`, built and
   tested locally, never deployed.
 - Bulk audience activation via [PyReverseETL](../PyReverseETL) as a
   second destination kind alongside webhook.
@@ -146,7 +146,7 @@ duplicate.
   workspace activates. `cargo audit` now reports 0 vulnerabilities and 0 warnings (previously 2
   vulnerabilities + 1 unmaintained warning), all real ones eliminated by the `sqlx` bump.
 - Added an optional per-deployment pepper to identity-matching hashes
-  (`crates/identity/src/hash.rs`, env var `MB_IDENTITY_HASH_PEPPER`) to mitigate
+  (`crates/identity/src/hash.rs`, env var `PYCUSTOMERHUB_IDENTITY_HASH_PEPPER`) to mitigate
   precomputed-dictionary attacks against low-entropy PII (email/phone) by a reader with database
   access. `hash_value` is only ever compared against hashes this codebase itself wrote (verified:
   every call site is inside `crates/identity/src/repo.rs`, in the same crate; no external
@@ -164,8 +164,8 @@ duplicate.
   request handler on network-influenced data.
 
 ### Known issues (see `docs/internal/ROADMAP_HONEST.md` and `SECURITY.md` for full detail)
-- No authentication or tenant isolation in `mb-api`.
+- No authentication or tenant isolation in `pch-api`.
 - `sdk/android` has never been compiled or tested.
 - `edge/ingest-gateway` has no write-key/API-key auth and has never been deployed.
-- Setting `MB_IDENTITY_HASH_PEPPER` for the first time on a deployment with existing identity data
+- Setting `PYCUSTOMERHUB_IDENTITY_HASH_PEPPER` for the first time on a deployment with existing identity data
   requires a re-hash migration that doesn't exist yet — see `SECURITY.md`.

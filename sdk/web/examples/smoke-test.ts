@@ -18,19 +18,14 @@ import { randomUUID } from "node:crypto";
 import type { ProfileView } from "@pycustomerhub/sdk";
 import { InMemoryStorage, PyCustomerHubWebAnalytics } from "../src/index.js";
 
-const apiUrl =
-  process.env.PYCUSTOMERHUB_API_URL ??
-  process.env.MESSAGEBIRDS_API_URL ??
-  "http://localhost:8080";
+const apiUrl = process.env.PYCUSTOMERHUB_API_URL ?? "http://localhost:8080";
 // The SDK only ever POSTs events through `apiUrl` (which may be the edge
 // ingestion gateway — it proxies POST /events only). Reading the profile
 // back to verify is a server-side/ops concern, same as `ui/`'s direct
 // calls to `pch-api` — it always goes straight to the origin, not through
 // the ingestion-only gateway.
 const verifyApiUrl =
-  process.env.PYCUSTOMERHUB_VERIFY_API_URL ??
-  process.env.MESSAGEBIRDS_VERIFY_API_URL ??
-  "http://localhost:8080";
+  process.env.PYCUSTOMERHUB_VERIFY_API_URL ?? "http://localhost:8080";
 const tenantId = randomUUID();
 
 function sleep(ms: number): Promise<void> {

@@ -3,9 +3,8 @@ import { PyCustomerHubWebAnalytics } from "../src/client.js";
 import { InMemoryStorage } from "../src/memory-storage.js";
 
 describe("PyCustomerHubWebAnalytics", () => {
-  it("migrates the anonymous id from the pre-rebrand storage key", () => {
+  it("creates and persists an anonymous id", () => {
     const storage = new InMemoryStorage();
-    storage.setItem("messagebirds:anonymous_id", "anon-legacy");
 
     const analytics = new PyCustomerHubWebAnalytics({
       writeKey: "tenant-1",
@@ -16,6 +15,6 @@ describe("PyCustomerHubWebAnalytics", () => {
     });
     analytics.destroy();
 
-    expect(storage.getItem("pycustomerhub:anonymous_id")).toBe("anon-legacy");
+    expect(storage.getItem("pycustomerhub:anonymous_id")).toMatch(/^anon-/);
   });
 });

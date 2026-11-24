@@ -12,7 +12,6 @@ import kotlinx.coroutines.launch
 import org.json.JSONObject
 
 private const val PREFS_NAME = "pycustomerhub"
-private const val LEGACY_PREFS_NAME = "messagebirds"
 private const val ANONYMOUS_ID_KEY = "anonymous_id"
 
 /**
@@ -38,8 +37,6 @@ class PyCustomerHubAnalytics(
     queueFile: File? = null,
     private val prefs: SharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE),
 ) {
-    private val legacyPrefs: SharedPreferences =
-        context.getSharedPreferences(LEGACY_PREFS_NAME, Context.MODE_PRIVATE)
     private val queue = EventQueue(
         queueFile ?: defaultQueueFile(context),
         ::sendOnce,
@@ -101,21 +98,11 @@ class PyCustomerHubAnalytics(
 
     private fun loadOrCreateAnonymousId(): String {
         prefs.getString(ANONYMOUS_ID_KEY, null)?.let { return it }
-        legacyPrefs.getString(ANONYMOUS_ID_KEY, null)?.let {
-            prefs.edit().putString(ANONYMOUS_ID_KEY, it).apply()
-            return it
-        }
         val id = "anon-${UUID.randomUUID()}"
         prefs.edit().putString(ANONYMOUS_ID_KEY, id).apply()
         return id
     }
 }
 
-private fun defaultQueueFile(context: Context): File {
-    val current = File(context.filesDir, "pycustomerhub-queue.json")
-    val legacy = File(context.filesDir, "messagebirds-queue.json")
-    if (!current.exists() && legacy.exists()) {
-        legacy.renameTo(current)
-    }
-    return current
-}
+private fun defaultQueueFile(context: Context): File =
+    File(context.filesDir, "pycustomerhub-queue.json")

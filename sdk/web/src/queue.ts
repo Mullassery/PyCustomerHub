@@ -12,7 +12,6 @@ export interface QueueStorage {
 }
 
 export const QUEUE_STORAGE_KEY = "pycustomerhub:queue";
-export const LEGACY_QUEUE_STORAGE_KEY = "messagebirds:queue";
 const MAX_ATTEMPTS = 5;
 
 /**
@@ -75,15 +74,7 @@ export class EventQueue {
 
   private load(): QueuedEvent[] {
     const raw = this.storage.getItem(QUEUE_STORAGE_KEY);
-    if (raw !== null) return parseQueue(raw);
-
-    const legacy = this.storage.getItem(LEGACY_QUEUE_STORAGE_KEY);
-    if (legacy === null) return [];
-
-    const items = parseQueue(legacy);
-    this.persist(items);
-    this.storage.setItem(LEGACY_QUEUE_STORAGE_KEY, JSON.stringify([]));
-    return items;
+    return raw === null ? [] : parseQueue(raw);
   }
 
   private persist(items: QueuedEvent[]): void {

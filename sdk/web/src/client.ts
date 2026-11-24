@@ -1,10 +1,5 @@
 import type { EventEnvelope, IdentityRef, SchemaRef } from "@pycustomerhub/sdk";
-import {
-  EventQueue,
-  LEGACY_QUEUE_STORAGE_KEY,
-  QUEUE_STORAGE_KEY,
-  type QueueStorage,
-} from "./queue.js";
+import { EventQueue, QUEUE_STORAGE_KEY, type QueueStorage } from "./queue.js";
 
 export interface PyCustomerHubWebAnalyticsOptions {
   /** The tenant to send events under. No real per-tenant write-key issuance
@@ -20,7 +15,6 @@ export interface PyCustomerHubWebAnalyticsOptions {
 }
 
 const ANON_ID_KEY = "pycustomerhub:anonymous_id";
-const LEGACY_ANON_ID_KEY = "messagebirds:anonymous_id";
 
 export class PyCustomerHubWebAnalytics {
   private readonly tenantId: string;
@@ -126,9 +120,7 @@ export class PyCustomerHubWebAnalytics {
    */
   private flushBeacon(): void {
     if (typeof navigator === "undefined" || !navigator.sendBeacon) return;
-    const raw =
-      this.storage.getItem(QUEUE_STORAGE_KEY) ??
-      this.storage.getItem(LEGACY_QUEUE_STORAGE_KEY);
+    const raw = this.storage.getItem(QUEUE_STORAGE_KEY);
     if (!raw) return;
     let items: { envelope: EventEnvelope }[];
     try {
@@ -140,18 +132,11 @@ export class PyCustomerHubWebAnalytics {
       navigator.sendBeacon(`${this.apiUrl}/events`, JSON.stringify(item.envelope));
     }
     this.storage.setItem(QUEUE_STORAGE_KEY, JSON.stringify([]));
-    this.storage.setItem(LEGACY_QUEUE_STORAGE_KEY, JSON.stringify([]));
   }
 
   private loadOrCreateAnonymousId(): string {
     const existing = this.storage.getItem(ANON_ID_KEY);
     if (existing) return existing;
-
-    const legacy = this.storage.getItem(LEGACY_ANON_ID_KEY);
-    if (legacy) {
-      this.storage.setItem(ANON_ID_KEY, legacy);
-      return legacy;
-    }
 
     const id = `anon-${crypto.randomUUID()}`;
     this.storage.setItem(ANON_ID_KEY, id);

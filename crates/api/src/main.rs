@@ -88,7 +88,6 @@ async fn main() -> anyhow::Result<()> {
     // need that (e.g. behind an authenticating proxy or in a trusted
     // network) must opt in explicitly.
     let allow_non_loopback = std::env::var("PYCUSTOMERHUB_ALLOW_NON_LOOPBACK")
-        .or_else(|_| std::env::var("MESSAGEBIRDS_ALLOW_NON_LOOPBACK"))
         .map(|v| v == "1" || v.eq_ignore_ascii_case("true"))
         .unwrap_or(false);
     let bind_host = if allow_non_loopback {

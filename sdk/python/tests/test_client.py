@@ -111,16 +111,3 @@ def test_find_profile_by_identity_found(client: PyCustomerHubClient) -> None:
 
 def test_find_profile_by_identity_missing_returns_none(client: PyCustomerHubClient) -> None:
     assert client.find_profile_by_identity("tenant-1", "anonymous_id", "unknown") is None
-
-
-def test_deprecated_messagebirds_import_reexports_client() -> None:
-    with pytest.warns(DeprecationWarning):
-        import messagebirds
-
-    from messagebirds.client import MessageBirdsClient
-    from messagebirds.types import EventEnvelope
-
-    assert messagebirds.PyCustomerHubClient is PyCustomerHubClient
-    assert messagebirds.MessageBirdsClient is PyCustomerHubClient
-    assert MessageBirdsClient is PyCustomerHubClient
-    assert EventEnvelope is not None

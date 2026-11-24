@@ -38,8 +38,7 @@ pub enum OutboundUrlError {
 /// Whether the SSRF guard is active. Defaults to on; the only way to turn
 /// it off is the explicit opt-out `PYCUSTOMERHUB_ALLOW_PRIVATE_WEBHOOKS`.
 pub fn guard_enabled() -> bool {
-    let value = std::env::var("PYCUSTOMERHUB_ALLOW_PRIVATE_WEBHOOKS")
-        .or_else(|_| std::env::var("MESSAGEBIRDS_ALLOW_PRIVATE_WEBHOOKS"));
+    let value = std::env::var("PYCUSTOMERHUB_ALLOW_PRIVATE_WEBHOOKS");
     !matches!(
         value.as_deref(),
         Ok("1") | Ok("true") | Ok("TRUE") | Ok("yes") | Ok("YES")

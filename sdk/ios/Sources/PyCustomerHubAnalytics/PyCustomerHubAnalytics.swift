@@ -13,7 +13,6 @@ public final class PyCustomerHubAnalytics {
     private let defaults: UserDefaults
 
     private static let anonymousIdKey = "pycustomerhub.anonymous_id"
-    private static let legacyAnonymousIdKey = "messagebirds.anonymous_id"
 
     /// - Parameters:
     ///   - writeKey: The tenant to send events under. No real per-tenant
@@ -38,18 +37,12 @@ public final class PyCustomerHubAnalytics {
         self.defaults = defaults
 
         let fileURL = queueFileURL ?? Self.defaultQueueFileURL()
-        if queueFileURL == nil {
-            Self.migrateLegacyQueueFileIfNeeded(to: fileURL)
-        }
         self.queue = EventQueue(fileURL: fileURL) { [session] envelope in
             await Self.sendOnce(envelope, apiUrl: URL(string: apiUrl)!, session: session)
         }
 
         if let existing = defaults.string(forKey: Self.anonymousIdKey) {
             self.anonymousId = existing
-        } else if let legacy = defaults.string(forKey: Self.legacyAnonymousIdKey) {
-            defaults.set(legacy, forKey: Self.anonymousIdKey)
-            self.anonymousId = legacy
         } else {
             let id = "anon-\(UUID().uuidString)"
             defaults.set(id, forKey: Self.anonymousIdKey)
@@ -126,13 +119,5 @@ public final class PyCustomerHubAnalytics {
         let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
             ?? FileManager.default.temporaryDirectory
         return dir.appendingPathComponent("pycustomerhub-queue.json")
-    }
-
-    private static func migrateLegacyQueueFileIfNeeded(to currentURL: URL) {
-        guard !FileManager.default.fileExists(atPath: currentURL.path) else { return }
-        let legacyURL = currentURL.deletingLastPathComponent()
-            .appendingPathComponent("messagebirds-queue.json")
-        guard FileManager.default.fileExists(atPath: legacyURL.path) else { return }
-        try? FileManager.default.moveItem(at: legacyURL, to: currentURL)
     }
 }

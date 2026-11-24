@@ -16,9 +16,6 @@ for use with your own `requests` calls against the REST API, the same role
 pip install pycustomerhub
 ```
 
-The pre-rebrand `messagebirds` import still works through a deprecated
-compatibility shim.
-
 ## Usage
 
 ```python

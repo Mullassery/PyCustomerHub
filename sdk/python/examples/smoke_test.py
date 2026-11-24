@@ -19,11 +19,7 @@ from datetime import datetime, timezone
 
 from pycustomerhub import EventEnvelope, PyCustomerHubClient
 
-base_url = (
-    os.environ.get("PYCUSTOMERHUB_API_URL")
-    or os.environ.get("MESSAGEBIRDS_API_URL")
-    or "http://localhost:8080"
-)
+base_url = os.environ.get("PYCUSTOMERHUB_API_URL") or "http://localhost:8080"
 client = PyCustomerHubClient(base_url)
 
 tenant_id = str(uuid.uuid4())

@@ -1,7 +1,4 @@
-const API_URL =
-  process.env.PYCUSTOMERHUB_API_URL ??
-  process.env.MESSAGEBIRDS_API_URL ??
-  "http://localhost:8080";
+const API_URL = process.env.PYCUSTOMERHUB_API_URL ?? "http://localhost:8080";
 
 export class ApiError extends Error {
   constructor(

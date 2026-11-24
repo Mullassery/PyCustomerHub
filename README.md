@@ -82,7 +82,7 @@ behind an authenticating proxy that strips client headers: the API reads
 `X-Auth-Request-User`, `X-Auth-Request-Groups` (`pycustomerhub-admin`/`-writer`),
 and `X-Auth-Request-Tenant`. Leave all unset for local development.
 
-Before pointing this at real PII, set `PYCUSTOMERHUB_IDENTITY_HASH_PEPPER` (a random per-deployment secret) on the `api`, `worker`, and `journeys-worker` processes — it is mixed into the identity-matching hash in `crates/identity/src/hash.rs`. Leaving it unset reproduces the old unsalted behavior; the legacy `MB_IDENTITY_HASH_PEPPER` name is also read. See `SECURITY.md`.
+Before pointing this at real PII, set `PYCUSTOMERHUB_IDENTITY_HASH_PEPPER` (a random per-deployment secret) on the `api`, `worker`, and `journeys-worker` processes — it is mixed into the identity-matching hash in `crates/identity/src/hash.rs`. Leaving it unset reproduces the old unsalted behavior. See `SECURITY.md`.
 
 ## HTTP tracking source
 
@@ -179,30 +179,6 @@ PyCustomerHub has one canonical event model and two integration directions:
 - **Outbound:** destination connectors implement one trait (`DestinationConnector`). Webhook, HubSpot, and Klaviyo use it directly; PyReverseETL handles bulk sync separately because it is a table-to-destination workflow, not a per-profile API call.
 - **Shared delivery:** retries, backoff, and rate limiting live outside individual adapters, so new connectors inherit the same behavior automatically.
 - **Extension path:** a new source only has to translate its payload into `EventEnvelope`; a new destination only has to build one request and report one result.
-
-## Migration from MessageBirds
-
-The project was renamed from MessageBirds to PyCustomerHub. Existing
-deployments can migrate incrementally:
-
-- **Rust crates/imports:** `pch-*` crates are the new names; rebuild against
-  `pch_*` imports.
-- **Environment variables:** use `PYCUSTOMERHUB_*`. The old `MESSAGEBIRDS_*`
-  names (and `MB_IDENTITY_HASH_PEPPER`) are still accepted as deprecated
-  fallbacks.
-- **SSO groups:** use `pycustomerhub-admin` / `pycustomerhub-writer`. The old
-  `messagebirds-admin` / `messagebirds-writer` groups are still accepted.
-- **Kafka consumer group:** the worker default is now
-  `pycustomerhub-worker`. During a rolling migration, set
-  `KAFKA_GROUP_ID=messagebirds-worker` to keep the existing committed offsets.
-- **Postgres:** local compose defaults are now
-  `pycustomerhub`/`pycustomerhub`/`pycustomerhub`. Existing volumes and
-  deployment credentials are unchanged until you update them.
-- **SDKs:** npm packages are scoped `@pycustomerhub/*`; Python code imports
-  `pycustomerhub` (`PyCustomerHubClient`). A deprecated `messagebirds` Python
-  import shim and old web/iOS/Android storage-key migrations are included.
-- **URLs:** use `../PyCustomerHub`. GitHub redirects
-  old repository links, but update local remotes.
 
 ## Event-triggered journeys
 

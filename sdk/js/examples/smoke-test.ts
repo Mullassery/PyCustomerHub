@@ -11,10 +11,7 @@ import { randomUUID } from "node:crypto";
 import { PyCustomerHubClient } from "../src/client.js";
 import type { EventEnvelope } from "../src/types.js";
 
-const baseUrl =
-  process.env.PYCUSTOMERHUB_API_URL ??
-  process.env.MESSAGEBIRDS_API_URL ??
-  "http://localhost:8080";
+const baseUrl = process.env.PYCUSTOMERHUB_API_URL ?? "http://localhost:8080";
 const client = new PyCustomerHubClient({ baseUrl });
 
 const tenantId = randomUUID();

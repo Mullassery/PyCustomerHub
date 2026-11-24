@@ -127,28 +127,3 @@ describe("write-key auth", () => {
     expect(forwarded.tenant_id).toBe(TENANT);
   });
 });
-
-describe("env fallback", () => {
-  it("forwards through the legacy upstream binding when the new one is unset", async () => {
-    const fetchMock = vi.fn().mockResolvedValue(
-      new Response("{}", { status: 200, headers: { "content-type": "application/json" } }),
-    );
-    vi.stubGlobal("fetch", fetchMock);
-
-    const request = new Request("https://gateway.example/events", {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(validEnvelope()),
-    });
-    const response = await handler.fetch(request, {
-      MESSAGEBIRDS_API_URL: "http://legacy:8080",
-      PYCUSTOMERHUB_EDGE_WRITE_KEYS: `{"tenant-1":"${TENANT}"}`,
-    });
-
-    expect(response.status).toBe(200);
-    expect(fetchMock).toHaveBeenCalledWith(
-      "http://legacy:8080/events",
-      expect.objectContaining({ method: "POST" }),
-    );
-  });
-});

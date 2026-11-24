@@ -14,9 +14,6 @@ use std::env;
 /// values like email/phone) and its limits.
 pub const HASH_PEPPER_ENV_VAR: &str = "PYCUSTOMERHUB_IDENTITY_HASH_PEPPER";
 
-/// Pre-rebrand name for [`HASH_PEPPER_ENV_VAR`], still read as a fallback.
-pub const LEGACY_HASH_PEPPER_ENV_VAR: &str = "MB_IDENTITY_HASH_PEPPER";
-
 /// Identity values are stored hashed, never in the clear — the identity
 /// graph only needs equality, not the raw email/phone/etc.
 ///
@@ -35,9 +32,7 @@ pub fn hash_value(namespace: &str, value: &str) -> String {
 }
 
 fn pepper_from_env() -> String {
-    env::var(HASH_PEPPER_ENV_VAR)
-        .or_else(|_| env::var(LEGACY_HASH_PEPPER_ENV_VAR))
-        .unwrap_or_default()
+    env::var(HASH_PEPPER_ENV_VAR).unwrap_or_default()
 }
 
 /// Pepper-parameterized core of [`hash_value`], split out so tests can

@@ -1,7 +1,7 @@
-# Cross-Repository Blockers — PyCustomerHub (MessageBirds) ↔ Squid-CRM
+# Cross-Repository Blockers — PyCustomerHub (PyCustomerHub) ↔ Squid-CRM
 
 Detailed specification of the PyCustomerHub → Squid-CRM integration blocker,
-from the PyCustomerHub (MessageBirds) perspective. The shared context is
+from the PyCustomerHub (PyCustomerHub) perspective. The shared context is
 documented in `Mullassery/Squid-CRM/docs/cross-repository-blockers.md`; this
 file records the PyCustomerHub side of the contract and what must change here
 to unblock it.
@@ -35,7 +35,7 @@ ingestion gateway is not deployed and has no write-key auth.
 
 ## 3. Evidence
 
-**PyCustomerHub (MessageBirds):**
+**PyCustomerHub (PyCustomerHub):**
 - OCDS envelope documented in `docs/OCDS.md`: `event_id`, `event_type`,
   `timestamp`, `source{type,name}`, `identity[]`, `context.profile_updates`,
   `data`, `schema{name,version}`, `tenant_id`, `consent`, `governance`,

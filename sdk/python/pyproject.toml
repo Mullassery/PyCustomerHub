@@ -30,7 +30,7 @@ Repository = "https://github.com/Mullassery/PyCustomerHub"
 Issues = "https://github.com/Mullassery/PyCustomerHub/issues"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/pycustomerhub", "src/messagebirds"]
+packages = ["src/pycustomerhub"]
 
 [tool.hatch.build.targets.sdist]
-include = ["src/pycustomerhub", "src/messagebirds", "LICENSE", "README.md"]
+include = ["src/pycustomerhub", "LICENSE", "README.md"]
